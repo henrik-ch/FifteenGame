@@ -1,0 +1,6 @@
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\bin\Debug\Puzzle.XML
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\bin\Debug\Puzzle.exe
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\bin\Debug\Puzzle.pdb
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\obj\x86\Debug\Puzzle.exe
+C:\Users\Henrik\FifteenGame\Puzzle\Puzzle\obj\x86\Debug\Puzzle.pdb
