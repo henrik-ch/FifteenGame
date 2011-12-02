@@ -93,3 +93,55 @@ module Core =
         match emptyTileFrom state (r,c) with
         | None  -> state
         | Some (r', c') -> switchTiles state ((r,c),(r',c'))
+
+
+    let flattenPuzzle (state : PuzzleState)  : Tiles =
+        state
+        |> Array.concat
+
+    let isSolved (state : PuzzleState) : bool =
+        let dim = dim state
+        let flat = flattenPuzzle state
+        [| 1..dim*dim |] = flat
+
+
+    let moveToStdConf (state : PuzzleState) : PuzzleState =
+        let dim = dim state
+        let (r,c) = emptyCoord state
+        let state' =    [1]
+                        |> List.map (fun c -> (r,c))
+                        |> List.fold moveTileAt state
+
+        let state'' =   [r+1..dim-1]
+                        |> List.map (fun r -> (r, dim - 1))
+                        |> List.fold moveTileAt state'
+        state''
+
+
+    let getRankViolations (tiles : Tile array) : int =
+        let rec countSmaller v fs =
+            match fs with
+            | [] -> 0
+            | x::fs' when x < v -> 1 + countSmaller v fs'
+            | _::fs' -> countSmaller v fs'
+
+        let foldFun v (sum, fs) =
+            let sum' = sum + countSmaller v fs
+            let fs' = v::fs
+            (sum',fs')
+
+        Array.foldBack foldFun tiles (0, [])
+        |> fst
+
+
+    let isEven (n : int) : bool =
+        n % 2 = 0
+
+    let isFlattenConfigSolvable : Tiles -> bool =
+        getRankViolations >> isEven
+
+
+    let isSolveable (state : PuzzleState) : bool =
+        moveToStdConf state
+        |> flattenPuzzle
+        |> isFlattenConfigSolvable
